@@ -1,0 +1,1999 @@
+{
+  "format": 1,
+  "id": "crt-guest",
+  "name": "CRT Guest Advanced",
+  "description": "High-quality CRT with mask, glow and bloom. Heavier.",
+  "speed": "UNMEASURED",
+  "historyDepth": 0,
+  "textures": [
+    {
+      "name": "SamplerLUT1",
+      "file": "lut/trinitron-lut.png",
+      "linear": true,
+      "wrap": "clamp_to_edge",
+      "mipmap": false
+    },
+    {
+      "name": "SamplerLUT2",
+      "file": "lut/inv-trinitron-lut.png",
+      "linear": true,
+      "wrap": "clamp_to_edge",
+      "mipmap": false
+    },
+    {
+      "name": "SamplerLUT3",
+      "file": "lut/nec-lut.png",
+      "linear": true,
+      "wrap": "clamp_to_edge",
+      "mipmap": false
+    },
+    {
+      "name": "SamplerLUT4",
+      "file": "lut/ntsc-lut.png",
+      "linear": true,
+      "wrap": "clamp_to_edge",
+      "mipmap": false
+    }
+  ],
+  "passes": [
+    {
+      "vertex": "pass0.vert",
+      "fragment": "pass0.frag",
+      "alias": null,
+      "scaleX": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "filterLinear": false,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA8",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        }
+      },
+      "samplers": {
+        "Source": "Source"
+      }
+    },
+    {
+      "vertex": "pass1.vert",
+      "fragment": "pass1.frag",
+      "alias": "StockPass",
+      "scaleX": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "filterLinear": false,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA8",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        }
+      },
+      "samplers": {
+        "Source": "Source"
+      }
+    },
+    {
+      "vertex": "pass2.vert",
+      "fragment": "pass2.frag",
+      "alias": "PrePass",
+      "scaleX": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA8",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "OriginalSize": {
+          "name": "params.OriginalSize",
+          "type": "vec4"
+        }
+      },
+      "samplers": {
+        "Source": "Source",
+        "SamplerLUT1": "SamplerLUT1",
+        "SamplerLUT2": "SamplerLUT2",
+        "SamplerLUT3": "SamplerLUT3",
+        "SamplerLUT4": "SamplerLUT4"
+      }
+    },
+    {
+      "vertex": "pass3.vert",
+      "fragment": "pass3.frag",
+      "alias": "LinearizePass",
+      "scaleX": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA16F",
+      "frameCountMod": 0,
+      "uniforms": {
+        "SourceSize": {
+          "name": "global.SourceSize",
+          "type": "vec4"
+        },
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "OriginalSize": {
+          "name": "params.OriginalSize",
+          "type": "vec4"
+        },
+        "FrameCount": {
+          "name": "params.FrameCount",
+          "type": "uint"
+        }
+      },
+      "samplers": {
+        "PrePass": "PrePass"
+      }
+    },
+    {
+      "vertex": "pass4.vert",
+      "fragment": "pass4.frag",
+      "alias": "Pass1",
+      "scaleX": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA16F",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "OriginalSize": {
+          "name": "params.OriginalSize",
+          "type": "vec4"
+        }
+      },
+      "samplers": {
+        "LinearizePass": "LinearizePass"
+      }
+    },
+    {
+      "vertex": "pass5.vert",
+      "fragment": "pass5.frag",
+      "alias": null,
+      "scaleX": {
+        "type": "absolute",
+        "factor": 640.0
+      },
+      "scaleY": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA16F",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "OriginalSize": {
+          "name": "params.OriginalSize",
+          "type": "vec4"
+        }
+      },
+      "samplers": {
+        "LinearizePass": "LinearizePass"
+      }
+    },
+    {
+      "vertex": "pass6.vert",
+      "fragment": "pass6.frag",
+      "alias": "BloomPass",
+      "scaleX": {
+        "type": "source",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "absolute",
+        "factor": 480.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA16F",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "SourceSize": {
+          "name": "params.SourceSize",
+          "type": "vec4"
+        },
+        "OriginalSize": {
+          "name": "params.OriginalSize",
+          "type": "vec4"
+        }
+      },
+      "samplers": {
+        "Source": "Source"
+      }
+    },
+    {
+      "vertex": "pass7.vert",
+      "fragment": "pass7.frag",
+      "alias": null,
+      "scaleX": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA16F",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "SourceSize": {
+          "name": "global.SourceSize",
+          "type": "vec4"
+        },
+        "OriginalSize": {
+          "name": "global.OriginalSize",
+          "type": "vec4"
+        },
+        "OutputSize": {
+          "name": "global.OutputSize",
+          "type": "vec4"
+        },
+        "FrameCount": {
+          "name": "global.FrameCount",
+          "type": "uint"
+        }
+      },
+      "samplers": {
+        "LinearizePass": "LinearizePass",
+        "Pass1": "Pass1",
+        "BloomPass": "BloomPass",
+        "PrePass": "PrePass"
+      }
+    },
+    {
+      "vertex": "pass8.vert",
+      "fragment": "pass8.frag",
+      "alias": null,
+      "scaleX": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA8",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "OriginalSize": {
+          "name": "global.OriginalSize",
+          "type": "vec4"
+        },
+        "OutputSize": {
+          "name": "global.OutputSize",
+          "type": "vec4"
+        },
+        "FrameCount": {
+          "name": "global.FrameCount",
+          "type": "uint"
+        }
+      },
+      "samplers": {
+        "Source": "Source",
+        "BloomPass": "BloomPass",
+        "LinearizePass": "LinearizePass",
+        "PrePass": "PrePass",
+        "StockPass": "StockPass"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "CS",
+      "label": "Display Gamut: sRGB, Modern, DCI, Adobe, Rec.2020, P3",
+      "min": 0.0,
+      "max": 5.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.CS"
+        }
+      ]
+    },
+    {
+      "id": "CP",
+      "label": "CRT Profile: EBU | P22 | SMPTE-C | Philips | Trin.",
+      "min": -1.0,
+      "max": 5.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.CP"
+        }
+      ]
+    },
+    {
+      "id": "TNTC",
+      "label": "LUT Colors: NTSC-J | Trinit. | Nec Mult. | NTSC 1953",
+      "min": 0.0,
+      "max": 4.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.TNTC"
+        }
+      ]
+    },
+    {
+      "id": "LS",
+      "label": "LUT Size",
+      "min": 16.0,
+      "max": 64.0,
+      "step": 16.0,
+      "default": 32.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.LS"
+        }
+      ]
+    },
+    {
+      "id": "WP",
+      "label": "Color Temperature %",
+      "min": -100.0,
+      "max": 100.0,
+      "step": 5.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.WP"
+        }
+      ]
+    },
+    {
+      "id": "wp_saturation",
+      "label": "Saturation Adjustment",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.wp_saturation"
+        }
+      ]
+    },
+    {
+      "id": "pre_bb",
+      "label": "Brightness Adjustment",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.pre_bb"
+        }
+      ]
+    },
+    {
+      "id": "contr",
+      "label": "Contrast Adjustment",
+      "min": -2.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.contr"
+        }
+      ]
+    },
+    {
+      "id": "pre_gc",
+      "label": "Gamma Correct Adjustment",
+      "min": 0.5,
+      "max": 1.75,
+      "step": 0.025,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.pre_gc"
+        }
+      ]
+    },
+    {
+      "id": "sega_fix",
+      "label": "Sega Brightness Fix",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.sega_fix"
+        }
+      ]
+    },
+    {
+      "id": "BP",
+      "label": "Raise Black Level",
+      "min": -100.0,
+      "max": 25.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.BP"
+        }
+      ]
+    },
+    {
+      "id": "vigstr",
+      "label": "Vignette Strength",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.vigstr"
+        }
+      ]
+    },
+    {
+      "id": "vigdef",
+      "label": "Vignette Size",
+      "min": 0.5,
+      "max": 3.0,
+      "step": 0.1,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 2,
+          "name": "params.vigdef"
+        }
+      ]
+    },
+    {
+      "id": "GAMMA_INPUT",
+      "label": "Gamma Input",
+      "min": 1.0,
+      "max": 5.0,
+      "step": 0.05,
+      "default": 2.4,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.GAMMA_INPUT"
+        }
+      ]
+    },
+    {
+      "id": "gamma_out",
+      "label": "Gamma out",
+      "min": 1.0,
+      "max": 5.0,
+      "step": 0.05,
+      "default": 2.4,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.gamma_out"
+        }
+      ]
+    },
+    {
+      "id": "inter",
+      "label": "Interlace Trigger Resolution/VGA Trigger:",
+      "min": 0.0,
+      "max": 800.0,
+      "step": 25.0,
+      "default": 375.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.inter"
+        }
+      ]
+    },
+    {
+      "id": "interm",
+      "label": "Interlace Mode: OFF, Normal 1-3,6; Interpolation 4-5",
+      "min": 0.0,
+      "max": 6.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.interm"
+        },
+        {
+          "pass": 7,
+          "name": "global.interm"
+        },
+        {
+          "pass": 8,
+          "name": "global.interm"
+        }
+      ]
+    },
+    {
+      "id": "iscan",
+      "label": "Interlacing Scanline Effect ('Laced brightness)",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.2,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.iscan"
+        }
+      ]
+    },
+    {
+      "id": "intres",
+      "label": "Internal Resolution Y: 0.5...y-dowsample divider",
+      "min": 0.0,
+      "max": 10.0,
+      "step": 0.5,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.intres"
+        },
+        {
+          "pass": 7,
+          "name": "global.intres"
+        }
+      ]
+    },
+    {
+      "id": "downsample_levelx",
+      "label": "Downsampling-X (High-res content, pre-scalers)",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.downsample_levelx"
+        }
+      ]
+    },
+    {
+      "id": "downsample_levely",
+      "label": "Downsampling-Y (High-res content, pre-scalers)",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.downsample_levely"
+        }
+      ]
+    },
+    {
+      "id": "iscans",
+      "label": "Interlacing (Scanline) Saturation",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.25,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.iscans"
+        }
+      ]
+    },
+    {
+      "id": "vga_mode",
+      "label": "VGA Single/Double Scan mode",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.vga_mode"
+        }
+      ]
+    },
+    {
+      "id": "hiscan",
+      "label": "High Resolution Scanlines (prepend a scaler...)",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 3,
+          "name": "params.hiscan"
+        },
+        {
+          "pass": 7,
+          "name": "params.hiscan"
+        },
+        {
+          "pass": 8,
+          "name": "params.hiscan"
+        }
+      ]
+    },
+    {
+      "id": "h_sharp",
+      "label": "Horizontal sharpness",
+      "min": 0.2,
+      "max": 15.0,
+      "step": 0.1,
+      "default": 5.2,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 4,
+          "name": "params.h_sharp"
+        }
+      ]
+    },
+    {
+      "id": "s_sharp",
+      "label": "Substractive sharpness (1.0 recommended)",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 0.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 4,
+          "name": "params.s_sharp"
+        }
+      ]
+    },
+    {
+      "id": "ring",
+      "label": "Substractive sharpness Ringing",
+      "min": 0.0,
+      "max": 3.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 4,
+          "name": "params.ring"
+        }
+      ]
+    },
+    {
+      "id": "spike",
+      "label": "Scanline Spike Removal",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 4,
+          "name": "params.spike"
+        }
+      ]
+    },
+    {
+      "id": "FINE_BLOOM",
+      "label": "Fine Bloom/Halation Sampling",
+      "min": -1.0,
+      "max": 5.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 5,
+          "name": "params.FINE_BLOOM"
+        },
+        {
+          "pass": 6,
+          "name": "params.FINE_BLOOM"
+        }
+      ]
+    },
+    {
+      "id": "SIZEHB",
+      "label": "Horizontal Bloom/Halation Radius",
+      "min": 1.0,
+      "max": 50.0,
+      "step": 1.0,
+      "default": 3.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 5,
+          "name": "params.SIZEHB"
+        }
+      ]
+    },
+    {
+      "id": "SIGMA_HB",
+      "label": "Horizontal Bloom/Halation Sigma",
+      "min": 0.25,
+      "max": 15.0,
+      "step": 0.025,
+      "default": 0.75,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 5,
+          "name": "params.SIGMA_HB"
+        }
+      ]
+    },
+    {
+      "id": "SIZEVB",
+      "label": "Vertical Bloom/Halation Radius",
+      "min": 1.0,
+      "max": 50.0,
+      "step": 1.0,
+      "default": 3.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 6,
+          "name": "params.SIZEVB"
+        }
+      ]
+    },
+    {
+      "id": "SIGMA_VB",
+      "label": "Vertical Bloom/Halation Sigma",
+      "min": 0.25,
+      "max": 15.0,
+      "step": 0.025,
+      "default": 0.6,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 6,
+          "name": "params.SIGMA_VB"
+        }
+      ]
+    },
+    {
+      "id": "IOS",
+      "label": "Integer Scaling: Odd:Y, Even:'X'+Y",
+      "min": 0.0,
+      "max": 4.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.IOS"
+        },
+        {
+          "pass": 8,
+          "name": "params.IOS"
+        }
+      ]
+    },
+    {
+      "id": "warpX",
+      "label": "CurvatureX (default 0.03)",
+      "min": 0.0,
+      "max": 0.25,
+      "step": 0.01,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "global.warpX"
+        },
+        {
+          "pass": 8,
+          "name": "params.warpX"
+        }
+      ]
+    },
+    {
+      "id": "warpY",
+      "label": "CurvatureY (default 0.04)",
+      "min": 0.0,
+      "max": 0.25,
+      "step": 0.01,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "global.warpY"
+        },
+        {
+          "pass": 8,
+          "name": "params.warpY"
+        }
+      ]
+    },
+    {
+      "id": "c_shape",
+      "label": "Curvature Shape",
+      "min": 0.05,
+      "max": 0.6,
+      "step": 0.05,
+      "default": 0.25,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "global.c_shape"
+        },
+        {
+          "pass": 8,
+          "name": "global.c_shape"
+        }
+      ]
+    },
+    {
+      "id": "overscanX",
+      "label": "Overscan X original pixels",
+      "min": -200.0,
+      "max": 200.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "global.overscanX"
+        },
+        {
+          "pass": 8,
+          "name": "global.overscanX"
+        }
+      ]
+    },
+    {
+      "id": "overscanY",
+      "label": "Overscan Y original pixels",
+      "min": -200.0,
+      "max": 200.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "global.overscanY"
+        },
+        {
+          "pass": 8,
+          "name": "global.overscanY"
+        }
+      ]
+    },
+    {
+      "id": "VShift",
+      "label": "Vertical shift Y original pixels",
+      "min": -200.0,
+      "max": 200.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "global.VShift"
+        },
+        {
+          "pass": 8,
+          "name": "global.VShift"
+        }
+      ]
+    },
+    {
+      "id": "csize",
+      "label": "Corner Size",
+      "min": 0.0,
+      "max": 0.35,
+      "step": 0.01,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.csize"
+        }
+      ]
+    },
+    {
+      "id": "bsize1",
+      "label": "Border Size",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.01,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.bsize1"
+        }
+      ]
+    },
+    {
+      "id": "sborder",
+      "label": "Border Intensity",
+      "min": 0.25,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.75,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.sborder"
+        }
+      ]
+    },
+    {
+      "id": "barspeed",
+      "label": "Hum Bar Speed",
+      "min": 5.0,
+      "max": 200.0,
+      "step": 1.0,
+      "default": 50.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.barspeed"
+        }
+      ]
+    },
+    {
+      "id": "barintensity",
+      "label": "Hum Bar Intensity",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.01,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.barintensity"
+        }
+      ]
+    },
+    {
+      "id": "bardir",
+      "label": "Hum Bar Direction",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.bardir"
+        }
+      ]
+    },
+    {
+      "id": "glow",
+      "label": "Glow Strength",
+      "min": -2.0,
+      "max": 2.0,
+      "step": 0.01,
+      "default": 0.08,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.glow"
+        }
+      ]
+    },
+    {
+      "id": "bloom",
+      "label": "Bloom Strength",
+      "min": -2.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.bloom"
+        }
+      ]
+    },
+    {
+      "id": "mask_bloom",
+      "label": "Mask Bloom",
+      "min": -2.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.mask_bloom"
+        }
+      ]
+    },
+    {
+      "id": "bloom_dist",
+      "label": "Bloom Distribution",
+      "min": -2.0,
+      "max": 3.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.bloom_dist"
+        }
+      ]
+    },
+    {
+      "id": "halation",
+      "label": "Halation Strength",
+      "min": -2.0,
+      "max": 2.0,
+      "step": 0.025,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.halation"
+        }
+      ]
+    },
+    {
+      "id": "bmask1",
+      "label": "Bloom Mask Strength",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.025,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.bmask1"
+        }
+      ]
+    },
+    {
+      "id": "hmask1",
+      "label": "Halation Mask Strength",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.025,
+      "default": 0.35,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.hmask1"
+        }
+      ]
+    },
+    {
+      "id": "gamma_c",
+      "label": "Gamma correct",
+      "min": 0.5,
+      "max": 2.0,
+      "step": 0.025,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.gamma_c"
+        },
+        {
+          "pass": 8,
+          "name": "global.gamma_c"
+        }
+      ]
+    },
+    {
+      "id": "gamma_c2",
+      "label": "Complementary Gamma correct",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.025,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.gamma_c2"
+        }
+      ]
+    },
+    {
+      "id": "brightboost",
+      "label": "Bright Boost Dark Pixels",
+      "min": 0.25,
+      "max": 10.0,
+      "step": 0.05,
+      "default": 1.4,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.brightboost"
+        }
+      ]
+    },
+    {
+      "id": "brightboost1",
+      "label": "Bright Boost Bright Pixels",
+      "min": 0.25,
+      "max": 3.0,
+      "step": 0.025,
+      "default": 1.1,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.brightboost1"
+        }
+      ]
+    },
+    {
+      "id": "clips",
+      "label": "Clip Saturated Color Beams",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.clips"
+        }
+      ]
+    },
+    {
+      "id": "gsl",
+      "label": "Scanline Type",
+      "min": -1.0,
+      "max": 2.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.gsl"
+        }
+      ]
+    },
+    {
+      "id": "scanline1",
+      "label": "Scanline Beam Shape Center",
+      "min": -20.0,
+      "max": 40.0,
+      "step": 0.5,
+      "default": 6.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.scanline1"
+        }
+      ]
+    },
+    {
+      "id": "scanline2",
+      "label": "Scanline Beam Shape Edges",
+      "min": 0.0,
+      "max": 70.0,
+      "step": 1.0,
+      "default": 8.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.scanline2"
+        }
+      ]
+    },
+    {
+      "id": "beam_min",
+      "label": "Scanline Shape Dark Pixels",
+      "min": 0.25,
+      "max": 10.0,
+      "step": 0.05,
+      "default": 1.3,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.beam_min"
+        }
+      ]
+    },
+    {
+      "id": "beam_max",
+      "label": "Scanline Shape Bright Pixels",
+      "min": 0.2,
+      "max": 3.5,
+      "step": 0.025,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.beam_max"
+        }
+      ]
+    },
+    {
+      "id": "tds",
+      "label": "Thinner Dark Scanlines",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.tds"
+        }
+      ]
+    },
+    {
+      "id": "beam_size",
+      "label": "Increased Bright Scanline Beam",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.6,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.beam_size"
+        }
+      ]
+    },
+    {
+      "id": "scans",
+      "label": "Scanline Saturation / Mask Falloff",
+      "min": 0.0,
+      "max": 6.0,
+      "step": 0.1,
+      "default": 0.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.scans"
+        }
+      ]
+    },
+    {
+      "id": "scan_falloff",
+      "label": "Scanline Falloff",
+      "min": 0.1,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "global.scan_falloff"
+        }
+      ]
+    },
+    {
+      "id": "no_scanlines",
+      "label": "No-scanline mode",
+      "min": 0.0,
+      "max": 1.5,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 7,
+          "name": "params.no_scanlines"
+        },
+        {
+          "pass": 8,
+          "name": "global.no_scanlines"
+        }
+      ]
+    },
+    {
+      "id": "shadowMask",
+      "label": "CRT Mask: 0:CGWG, 1-4:Lottes, 5-14:'Trinitron'",
+      "min": -1.0,
+      "max": 14.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.shadowMask"
+        }
+      ]
+    },
+    {
+      "id": "maskstr",
+      "label": "Mask Strength (0, 5-14)",
+      "min": -0.5,
+      "max": 1.0,
+      "step": 0.025,
+      "default": 0.3,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.maskstr"
+        }
+      ]
+    },
+    {
+      "id": "mcut",
+      "label": "Mask 5-14 Low Strength",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 1.1,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.mcut"
+        }
+      ]
+    },
+    {
+      "id": "maskboost",
+      "label": "CRT Mask Boost",
+      "min": 1.0,
+      "max": 3.0,
+      "step": 0.05,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.maskboost"
+        }
+      ]
+    },
+    {
+      "id": "masksize",
+      "label": "CRT Mask Size",
+      "min": 1.0,
+      "max": 4.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.masksize"
+        }
+      ]
+    },
+    {
+      "id": "mask_zoom",
+      "label": "CRT Mask Zoom (+ mask width)",
+      "min": -10.0,
+      "max": 6.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.mask_zoom"
+        }
+      ]
+    },
+    {
+      "id": "mzoom_sh",
+      "label": "CRT Mask Zoom Sharpen (needs Mask Zoom)",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.mzoom_sh"
+        }
+      ]
+    },
+    {
+      "id": "mshift",
+      "label": "(Transform to) Shadow Mask",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.5,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.mshift"
+        }
+      ]
+    },
+    {
+      "id": "mask_layout",
+      "label": "Mask Layout: RGB or BGR (check LCD panel)",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.mask_layout"
+        }
+      ]
+    },
+    {
+      "id": "maskDark",
+      "label": "Lottes maskDark",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 0.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.maskDark"
+        }
+      ]
+    },
+    {
+      "id": "maskLight",
+      "label": "Lottes maskLight",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 1.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.maskLight"
+        }
+      ]
+    },
+    {
+      "id": "mask_gamma",
+      "label": "Mask gamma",
+      "min": 1.0,
+      "max": 5.0,
+      "step": 0.05,
+      "default": 2.4,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.mask_gamma"
+        }
+      ]
+    },
+    {
+      "id": "slotmask",
+      "label": "Slot Mask Strength Bright Pixels",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.slotmask"
+        }
+      ]
+    },
+    {
+      "id": "slotmask1",
+      "label": "Slot Mask Strength Dark Pixels",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.slotmask1"
+        }
+      ]
+    },
+    {
+      "id": "slotwidth",
+      "label": "Slot Mask Width (0:Auto)",
+      "min": 0.0,
+      "max": 16.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.slotwidth"
+        }
+      ]
+    },
+    {
+      "id": "double_slot",
+      "label": "Slot Mask Height: 2x1 or 4x1...",
+      "min": 1.0,
+      "max": 4.0,
+      "step": 1.0,
+      "default": 2.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.double_slot"
+        }
+      ]
+    },
+    {
+      "id": "slotms",
+      "label": "Slot Mask Thickness",
+      "min": 1.0,
+      "max": 4.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.slotms"
+        }
+      ]
+    },
+    {
+      "id": "smoothmask",
+      "label": "Smooth Masks in bright scanlines",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.smoothmask"
+        }
+      ]
+    },
+    {
+      "id": "smask_mit",
+      "label": "Mitigate Slotmask Interaction",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.smask_mit"
+        }
+      ]
+    },
+    {
+      "id": "bmask",
+      "label": "Base (black) Mask strength",
+      "min": 0.0,
+      "max": 0.25,
+      "step": 0.01,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.bmask"
+        }
+      ]
+    },
+    {
+      "id": "mclip",
+      "label": "Preserve Mask Strength",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.025,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.mclip"
+        }
+      ]
+    },
+    {
+      "id": "pr_scan",
+      "label": "Preserve Scanline Properties",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.025,
+      "default": 0.1,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.pr_scan"
+        }
+      ]
+    },
+    {
+      "id": "edgemask",
+      "label": "Mitigate Mask on Edges",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.1,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.edgemask"
+        }
+      ]
+    },
+    {
+      "id": "dctypex",
+      "label": "Deconvergence type X : 0.0 - static, other - dynamic",
+      "min": 0.0,
+      "max": 0.75,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.dctypex"
+        }
+      ]
+    },
+    {
+      "id": "dctypey",
+      "label": "Deconvergence type Y : 0.0 - static, other - dynamic",
+      "min": 0.0,
+      "max": 0.75,
+      "step": 0.05,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.dctypey"
+        }
+      ]
+    },
+    {
+      "id": "deconrr",
+      "label": "Horizontal Deconvergence Red Range",
+      "min": -15.0,
+      "max": 15.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.deconrr"
+        }
+      ]
+    },
+    {
+      "id": "deconrg",
+      "label": "Horizontal Deconvergence Green Range",
+      "min": -15.0,
+      "max": 15.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.deconrg"
+        }
+      ]
+    },
+    {
+      "id": "deconrb",
+      "label": "Horizontal Deconvergence Blue Range",
+      "min": -15.0,
+      "max": 15.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.deconrb"
+        }
+      ]
+    },
+    {
+      "id": "deconrry",
+      "label": "Vertical Deconvergence Red Range",
+      "min": -15.0,
+      "max": 15.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.deconrry"
+        }
+      ]
+    },
+    {
+      "id": "deconrgy",
+      "label": "Vertical Deconvergence Green Range",
+      "min": -15.0,
+      "max": 15.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.deconrgy"
+        }
+      ]
+    },
+    {
+      "id": "deconrby",
+      "label": "Vertical Deconvergence Blue Range",
+      "min": -15.0,
+      "max": 15.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.deconrby"
+        }
+      ]
+    },
+    {
+      "id": "decons",
+      "label": "Deconvergence Strength",
+      "min": 0.0,
+      "max": 3.0,
+      "step": 0.1,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.decons"
+        }
+      ]
+    },
+    {
+      "id": "addnoised",
+      "label": "Add Noise",
+      "min": -1.0,
+      "max": 1.0,
+      "step": 0.02,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.addnoised"
+        }
+      ]
+    },
+    {
+      "id": "noiseresd",
+      "label": "Noise Resolution",
+      "min": 1.0,
+      "max": 10.0,
+      "step": 1.0,
+      "default": 2.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "params.noiseresd"
+        }
+      ]
+    },
+    {
+      "id": "noisetype",
+      "label": "Noise Type: Colored, Luma",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.noisetype"
+        }
+      ]
+    },
+    {
+      "id": "post_br",
+      "label": "Post Brightness",
+      "min": 0.25,
+      "max": 5.0,
+      "step": 0.01,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.post_br"
+        }
+      ]
+    },
+    {
+      "id": "oimage",
+      "label": "Show Original Image",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.25,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 8,
+          "name": "global.oimage"
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "component": "crt-guest-advanced",
+      "authors": "guest(r)",
+      "licence": "GPL-2.0-or-later",
+      "source": "https://github.com/libretro/slang-shaders/tree/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/guest"
+    }
+  ]
+}

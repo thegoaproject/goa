@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  What Android backup (cloud) and phone-to-phone transfer may copy. An <include> list means nothing else is copied:
+  - games, downloads and the registry cache (files/) are large or re-fetched, and are never copied;
+  - the library database is left out so a new phone doesn't list games as installed without their files;
+  - goa_secure_session_prefs (GOG sign-in) is encrypted with a keystore key that stays on the old phone, so a copy
+    could never be read; the player signs in to GOG again;
+  - goa_license is left out: Google Play restores a Register GOA purchase on the new phone by itself;
+  - goa_folders holds folder grants that the system doesn't carry over.
+  What is copied: control layouts and mappings, UI choices, and the privacy choice with its player IDs (so
+  "Delete my shared data" still finds what an earlier phone shared).
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="goa_ui_state.xml" />
+        <include domain="sharedpref" path="goa_joypad_layout.xml" />
+        <include domain="sharedpref" path="goa_gamepad_mappings.xml" />
+        <include domain="sharedpref" path="goa_bundled_optout.xml" />
+        <include domain="sharedpref" path="goa_privacy.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="sharedpref" path="goa_ui_state.xml" />
+        <include domain="sharedpref" path="goa_joypad_layout.xml" />
+        <include domain="sharedpref" path="goa_gamepad_mappings.xml" />
+        <include domain="sharedpref" path="goa_bundled_optout.xml" />
+        <include domain="sharedpref" path="goa_privacy.xml" />
+    </device-transfer>
+</data-extraction-rules>

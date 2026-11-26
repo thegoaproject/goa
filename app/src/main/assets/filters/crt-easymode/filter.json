@@ -1,0 +1,311 @@
+{
+  "format": 1,
+  "id": "crt-easymode",
+  "name": "CRT Easymode",
+  "description": "Balanced scanlines and mask that look good at any size.",
+  "speed": "UNMEASURED",
+  "historyDepth": 0,
+  "textures": [],
+  "passes": [
+    {
+      "vertex": "pass0.vert",
+      "fragment": "pass0.frag",
+      "alias": null,
+      "scaleX": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "filterLinear": false,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA8",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "OutputSize": {
+          "name": "global.OutputSize",
+          "type": "vec4"
+        },
+        "SourceSize": {
+          "name": "global.SourceSize",
+          "type": "vec4"
+        }
+      },
+      "samplers": {
+        "Source": "Source"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "SHARPNESS_H",
+      "label": "Sharpness Horizontal",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SHARPNESS_H"
+        }
+      ]
+    },
+    {
+      "id": "SHARPNESS_V",
+      "label": "Sharpness Vertical",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SHARPNESS_V"
+        }
+      ]
+    },
+    {
+      "id": "MASK_STRENGTH",
+      "label": "Mask Strength",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.01,
+      "default": 0.3,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.MASK_STRENGTH"
+        }
+      ]
+    },
+    {
+      "id": "MASK_DOT_WIDTH",
+      "label": "Mask Dot Width",
+      "min": 1.0,
+      "max": 100.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.MASK_DOT_WIDTH"
+        }
+      ]
+    },
+    {
+      "id": "MASK_DOT_HEIGHT",
+      "label": "Mask Dot Height",
+      "min": 1.0,
+      "max": 100.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.MASK_DOT_HEIGHT"
+        }
+      ]
+    },
+    {
+      "id": "MASK_STAGGER",
+      "label": "Mask Stagger",
+      "min": 0.0,
+      "max": 100.0,
+      "step": 1.0,
+      "default": 0.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.MASK_STAGGER"
+        }
+      ]
+    },
+    {
+      "id": "MASK_SIZE",
+      "label": "Mask Size",
+      "min": 1.0,
+      "max": 100.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.MASK_SIZE"
+        }
+      ]
+    },
+    {
+      "id": "SCANLINE_STRENGTH",
+      "label": "Scanline Strength",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SCANLINE_STRENGTH"
+        }
+      ]
+    },
+    {
+      "id": "SCANLINE_BEAM_WIDTH_MIN",
+      "label": "Scanline Beam Width Min.",
+      "min": 0.5,
+      "max": 5.0,
+      "step": 0.5,
+      "default": 1.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SCANLINE_BEAM_WIDTH_MIN"
+        }
+      ]
+    },
+    {
+      "id": "SCANLINE_BEAM_WIDTH_MAX",
+      "label": "Scanline Beam Width Max.",
+      "min": 0.5,
+      "max": 5.0,
+      "step": 0.5,
+      "default": 1.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SCANLINE_BEAM_WIDTH_MAX"
+        }
+      ]
+    },
+    {
+      "id": "SCANLINE_BRIGHT_MIN",
+      "label": "Scanline Brightness Min.",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.35,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SCANLINE_BRIGHT_MIN"
+        }
+      ]
+    },
+    {
+      "id": "SCANLINE_BRIGHT_MAX",
+      "label": "Scanline Brightness Max.",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.65,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SCANLINE_BRIGHT_MAX"
+        }
+      ]
+    },
+    {
+      "id": "SCANLINE_CUTOFF",
+      "label": "Scanline Cutoff",
+      "min": 1.0,
+      "max": 1000.0,
+      "step": 1.0,
+      "default": 400.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.SCANLINE_CUTOFF"
+        }
+      ]
+    },
+    {
+      "id": "GAMMA_INPUT",
+      "label": "Gamma Input",
+      "min": 0.1,
+      "max": 5.0,
+      "step": 0.1,
+      "default": 2.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.GAMMA_INPUT"
+        }
+      ]
+    },
+    {
+      "id": "GAMMA_OUTPUT",
+      "label": "Gamma Output",
+      "min": 0.1,
+      "max": 5.0,
+      "step": 0.1,
+      "default": 1.8,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.GAMMA_OUTPUT"
+        }
+      ]
+    },
+    {
+      "id": "BRIGHT_BOOST",
+      "label": "Brightness Boost",
+      "min": 1.0,
+      "max": 2.0,
+      "step": 0.01,
+      "default": 1.2,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.BRIGHT_BOOST"
+        }
+      ]
+    },
+    {
+      "id": "DILATION",
+      "label": "Dilation",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.DILATION"
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "component": "crt-easymode",
+      "authors": "EasyMode",
+      "licence": "GPL (any version)",
+      "source": "https://github.com/libretro/slang-shaders/blob/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/crt-easymode.slang"
+    }
+  ]
+}

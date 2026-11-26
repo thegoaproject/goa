@@ -1,0 +1,48 @@
+GOA TERMS OF USE
+Last updated: 14 November 2026
+
+By using GOA you agree to these terms. If you don't agree, don't use the app.
+
+1. WHAT GOA IS
+GOA is a player for MS-DOS games. It runs games you install from your GOG.com library, the freeware titles it offers, and games you import yourself. GOA does not sell games and does not provide copies of commercial games.
+
+2. YOUR GAMES ARE YOUR RESPONSIBILITY
+Only install or import games you own or are otherwise allowed to use: games you bought, freeware, shareware, or copies you have the right to make. GOA cannot check where an imported file came from or whether you may use it. You are responsible for every file you import and for following the law where you live.
+
+3. FREEWARE
+The free games GOA offers were released as freeware by their makers and are distributed unmodified under those freeware terms. Those terms, not these, govern the games themselves. Their makers are credited in the app's menu (☰) → Licenses.
+
+4. GOG.COM
+Signing in with GOG is optional. GOA is not made, endorsed or supported by GOG.com or CD PROJEKT. Your use of GOG is governed by GOG's own terms. GOA keeps your GOG sign-in encrypted on your device and never sends it anywhere except to GOG. In-app access to GOG may change or disappear at any time due to GOG policy, and we have no control over that. Because GOG games are DRM-free, you are always able to download them from GOG and put them directly onto your phone storage to play them in GOA.
+
+5. AUTOMATIC SETTINGS
+GOA changes emulator and game settings automatically: controls, sound hardware, CPU speed and the games' own configuration files. You can reset a game's controls to GOA's choice from the game's page, but GOA cannot guarantee that any setting will make a game work.
+
+6. FREE VERSION, REGISTRATION AND REFUNDS
+GOA is free to download. The free version includes every feature and every free game in the catalogue, plus up to 3 of your own games (from GOG or imported) installed at a time. "GOA Pro" is a one-time purchase through Google Play that removes that limit for as long as you keep it. There is no subscription.
+Purchases are processed by Google Play under Google Play's terms. Refunds are handled by Google Play under its refund policy, and by us as required by law. If a registration is refunded, charged back or revoked, GOA returns to the free version: your 2 most recently played games stay playable, and your other games stay installed, with their saves, but can't be launched until you register again or uninstall some. GOA checks your registration with Google Play when it starts; being offline never removes it.
+
+7. YOUR DATA
+Everything about how your games run stays on your device unless you turn on "Share anonymous game health data". The Privacy Policy (☰ → Licenses → Privacy Policy) explains what is shared, how long it is kept and how to delete it.
+
+8. OPEN-SOURCE SOFTWARE
+GOA includes open-source software, listed with its licences under ☰ → Licenses. Those licences govern those components, and nothing in these terms limits the rights they give you. Where a licence requires it, the source code is available from the links listed there.
+
+9. TRADEMARKS
+Game titles, characters, logos and company names belong to their owners. Their appearance in GOA does not mean they endorse GOA.
+The names GOA and Good Old Android, and the GOA logo and icon, belong to the GOA Team. GOA's source code is free software, but those names and that artwork are not covered by its licence. The GOA Name and Logo Policy at https://goodoldandroid.app/brand/ says what others may and may not do with them.
+
+10. OFFICIAL APP AND SERVICES
+GOA's game settings service, content network and data service are run by the GOA Team for the official GOA app that we distribute on Google Play. You may not use them from any other software, copy or collect their contents in bulk, republish or resell them, or try to get around their limits or checks. The collection of game settings is protected by copyright and database rights and remains ours. Game files delivered through the content network stay under their authors' own terms. We may limit or block access at any time, in particular for copies of GOA that are not our official build. The licence to GOA's source code lets you use and change the code; it does not give you access to our services or data.
+
+11. NO WARRANTY
+GOA is provided "as is", without any warranty. Emulation is not perfect: games may crash, run incorrectly or lose saved games. Back up anything you care about.
+
+12. LIMITATION OF LIABILITY
+To the extent the law allows, the makers of GOA are not liable for any loss or damage arising from using it, including lost saved games, lost data or problems with your device. Nothing in these terms limits rights you have as a consumer that cannot be limited by law.
+
+13. CHANGES
+These terms may change. The date at the top shows when they last changed. Continuing to use GOA after a change means you accept the new terms.
+
+14. WHO PROVIDES GOA AND HOW TO CONTACT US
+GOA is made by the GOA Team and provided by EYETHRIVE LTD. These terms are an agreement between you and EYETHRIVE LTD. Contact: support@goodoldandroid.app.

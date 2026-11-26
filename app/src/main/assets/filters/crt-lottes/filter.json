@@ -1,0 +1,251 @@
+{
+  "format": 1,
+  "id": "crt-lottes",
+  "name": "CRT Lottes",
+  "description": "Arcade-style scanlines with a strong shadow mask.",
+  "speed": "UNMEASURED",
+  "historyDepth": 0,
+  "textures": [],
+  "passes": [
+    {
+      "vertex": "pass0.vert",
+      "fragment": "pass0.frag",
+      "alias": null,
+      "scaleX": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "filterLinear": false,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA8",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "OutputSize": {
+          "name": "global.OutputSize",
+          "type": "vec4"
+        },
+        "SourceSize": {
+          "name": "global.SourceSize",
+          "type": "vec4"
+        }
+      },
+      "samplers": {
+        "Source": "Source"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "hardScan",
+      "label": "hardScan",
+      "min": -20.0,
+      "max": 0.0,
+      "step": 1.0,
+      "default": -8.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.hardScan"
+        }
+      ]
+    },
+    {
+      "id": "hardPix",
+      "label": "hardPix",
+      "min": -20.0,
+      "max": 0.0,
+      "step": 1.0,
+      "default": -3.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.hardPix"
+        }
+      ]
+    },
+    {
+      "id": "warpX",
+      "label": "warpX",
+      "min": 0.0,
+      "max": 0.125,
+      "step": 0.01,
+      "default": 0.031,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.warpX"
+        }
+      ]
+    },
+    {
+      "id": "warpY",
+      "label": "warpY",
+      "min": 0.0,
+      "max": 0.125,
+      "step": 0.01,
+      "default": 0.041,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.warpY"
+        }
+      ]
+    },
+    {
+      "id": "maskDark",
+      "label": "maskDark",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 0.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.maskDark"
+        }
+      ]
+    },
+    {
+      "id": "maskLight",
+      "label": "maskLight",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.maskLight"
+        }
+      ]
+    },
+    {
+      "id": "scaleInLinearGamma",
+      "label": "scaleInLinearGamma",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 1.0,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.scaleInLinearGamma"
+        }
+      ]
+    },
+    {
+      "id": "shadowMask",
+      "label": "shadowMask",
+      "min": 0.0,
+      "max": 4.0,
+      "step": 1.0,
+      "default": 3.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.shadowMask"
+        }
+      ]
+    },
+    {
+      "id": "brightBoost",
+      "label": "brightness boost",
+      "min": 0.0,
+      "max": 2.0,
+      "step": 0.05,
+      "default": 1.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.brightBoost"
+        }
+      ]
+    },
+    {
+      "id": "hardBloomPix",
+      "label": "bloom-x soft",
+      "min": -2.0,
+      "max": -0.5,
+      "step": 0.1,
+      "default": -1.5,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.hardBloomPix"
+        }
+      ]
+    },
+    {
+      "id": "hardBloomScan",
+      "label": "bloom-y soft",
+      "min": -4.0,
+      "max": -1.0,
+      "step": 0.1,
+      "default": -2.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.hardBloomScan"
+        }
+      ]
+    },
+    {
+      "id": "bloomAmount",
+      "label": "bloom ammount",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.15,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.bloomAmount"
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "label": "filter kernel shape",
+      "min": 0.0,
+      "max": 10.0,
+      "step": 0.05,
+      "default": 2.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.shape"
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "component": "crt-lottes",
+      "authors": "Timothy Lottes",
+      "licence": "Public domain",
+      "source": "https://github.com/libretro/slang-shaders/blob/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/crt-lottes.slang"
+    }
+  ]
+}

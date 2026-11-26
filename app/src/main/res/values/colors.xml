@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#FDF6F0</color>
+    <color name="goa_splash_background">#FDF6F0</color>
+    <!-- GOA OSS: black icon and splash background, the same in light and dark mode -->
+    <color name="ic_launcher_oss_background">#000000</color>
+</resources>

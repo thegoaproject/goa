@@ -1,0 +1,54 @@
+GOA PRIVACY POLICY
+Last updated: 14 November 2026
+
+This policy explains what GOA does with information about you and your device. In short: almost everything stays on your phone. GOA only shares anonymous game health data if you turn sharing on, and you can delete it at any time.
+
+WHO WE ARE
+GOA is made by the GOA Team and published by EYETHRIVE LTD, which is responsible for your data under data protection law (the data controller). Privacy questions and deletion requests: support@goodoldandroid.app.
+
+1. WHAT STAYS ON YOUR DEVICE
+GOA stores these on your phone only:
+- Your game library: installed games, their files, saves and settings.
+- Your controller layouts and app settings.
+- A record of each play session (which game, how long, whether it ran at full speed, had sound or crashed, and settings you changed). GOA uses it to show how well each game runs on your phone.
+- Your GOG sign-in, if you use it, encrypted with Android's keystore.
+Games you import stay on your device. GOA never uploads your files, except save states you choose to copy to your own Google Drive (section 4).
+
+2. GAME HEALTH DATA YOU CHOOSE TO SHARE
+Sharing is off until you turn it on in the prompt GOA shows before your first game, or in the menu (☰) → Account & Privacy. If you turn it on, GOA sends:
+- Session health: duration, outcome, speed, sound, stutter and crashes.
+- Settings you changed: control scheme, button mappings and visual preset.
+- Phone make, model, chipset, Android version, and memory rounded to the nearest gigabyte.
+- A random player ID, which you can reset in ☰ → Account & Privacy.
+It never includes your name, email, GOG account, location, IP address, advertising ID, Android ID or other hardware identifiers, your files, or anything you type.
+We use this data only to find games that run badly and to improve default settings for everyone. We don't sell it, share it with anyone else, or use it for advertising. It is stored by our hosting provider, Cloudflare, sent over encrypted connections, and the collection service keeps no IP addresses or request logs.
+
+3. RETENTION AND DELETION
+- Shared data is deleted automatically after 18 months.
+- ☰ → Account & Privacy → Delete my shared data deletes everything shared under your current and previous player IDs.
+- Turning sharing off stops all sending immediately.
+- Uninstalling GOA deletes everything it stored on your device. If your phone's Android backup is on, GOA's settings and control layouts (never your games, library or GOG sign-in) are included in that backup, which Google stores for you under your Google account.
+- You can also ask us to delete your data by emailing the contact above.
+
+4. SERVICES GOA CONNECTS TO
+These services receive your device's IP address and basic request details whenever GOA connects to them, as any internet connection requires. Their own privacy policies apply.
+- GOG.com: only if you sign in. It is used to sign in, list your library, download your games and show their artwork.
+- Cloudflare: GOA's content network. It delivers free games and updated game settings.
+- Google Play: purchases (see section 5), and a check that your copy of GOA was installed from Google Play before it downloads updated game settings. GOA sends the resulting Google-signed check to our server, which asks Google to confirm it; it says whether the app is genuine and licensed, and contains no personal details.
+- The original publishers' sites, such as downloads.scummvm.org: some free games come directly from their official download pages.
+- Google Drive: only if you use Google Drive Backup (GOA Pro). With your permission, GOA copies your save states to a "GOA Save States" folder in your own Google Drive and copies them back when you ask. GOA can only see the files it created there, never the rest of your Drive. The files go straight between your phone and Google, never through our servers, and GOA keeps no copy of your Google sign-in: it stores only the name of the Google account you chose. Each save state's note records the game, when it was saved, your phone's name and the app versions. Unlink in ☰ → Drive Backup withdraws GOA's access; the files stay in your Drive until you delete them. GOA's use of information received from Google APIs adheres to the Google API Services User Data Policy (developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements: it is used only to copy your save states, never for advertising, and never sold or shared.
+
+5. PURCHASES
+"Register GOA" is bought through Google Play. Google handles the payment, and GOA never sees your card or payment details. GOA only receives confirmation from Google Play that your account owns the registration, which it checks on your device to unlock unlimited games.
+
+6. PERMISSIONS
+GOA uses the internet to download games and settings, and your phone's motion sensors for optional gyro aiming. Sensor readings are used only while you play and are never stored or sent. It can also set a game's artwork as your wallpaper, but only when you ask it to.
+
+7. CHILDREN
+GOA is not directed at children under 13, and we don't knowingly collect data from them. Shared game health data is anonymous whoever plays.
+
+8. YOUR RIGHTS
+Depending on where you live (for example under the GDPR or UK GDPR), you may have the right to access, correct, delete or object to the processing of your data. Because shared data is tied only to a random player ID, include that ID (shown in ☰ → Account & Privacy) when you contact us so we can find it. The legal basis for processing shared data is your consent, which you can withdraw at any time by turning sharing off.
+
+9. CHANGES
+If this policy changes, the date at the top changes, and significant changes are shown in the app.

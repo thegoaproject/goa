@@ -1,0 +1,5 @@
+The first release of GOA on Google Play.
+• Bring in your own DOS games from your GOG account or a folder on your phone. Each one is set up for you: just press Play.
+• Controls are set up for each game, for a controller, touch or a keyboard. In point-and-click games, tap where you want the pointer.
+• Save states and a restore for the previous one.
+• Free for 3 of your own games at a time; GOA Pro is a one-time purchase for the rest.

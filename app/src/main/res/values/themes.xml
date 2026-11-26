@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Goa" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowSplashScreenBackground">@color/goa_splash_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+    </style>
+
+    <!-- GOA OSS (goa.edition=oss): its own splash, matching its "GOA OSS" icon -->
+    <style name="Theme.Goa.Oss" parent="Theme.Goa">
+        <item name="android:windowSplashScreenBackground">@color/ic_launcher_oss_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_oss_foreground</item>
+    </style>
+</resources>

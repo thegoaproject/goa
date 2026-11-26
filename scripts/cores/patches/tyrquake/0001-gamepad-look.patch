@@ -1,0 +1,88 @@
+GOA patch for TyrQuake (libretro) 67db338ff4d27fdbcead61d4e54938d758ae62cb: gamepad look-spring, centre view and gyro
+look.
+
+Upstream IN_Move calls V_StopPitchDrift() on every frame while a gamepad is the input device, whatever the right
+stick is doing, so nothing can level the view: the centerview command, the lookspring option and Quake's
+walk-forward recentring are all cancelled in the frame they start. This holds the drift off only while the right
+stick is pitching the view (outside the analog deadzone), as the mouse and the look keys do, and with lookspring on
+starts Quake's own recentring once the stick has rested for 0.6 s after looking up or down (the stick counterpart
+of releasing mlook with lookspring on).
+
+Upstream also reads the mouse only when the keyboard is the input device, so a gamepad player's frontend has no way
+to add motion aiming (a phone's gyro). This applies mouse motion in the gamepad branch too, as the keyboard branch
+does (m_yaw, m_pitch, sensitivity). Pitching that way stops the centring drift as the mouse does (the drift keeps
+pulling the view level after it gets there), except that a tremor never cuts a centring short, and by more than a
+tremor while the look-spring waits it calls the spring off, so the view stays where the tilt aims it.
+
+Licence: GPL-2.0-or-later, as TyrQuake.
+
+diff --git a/common/libretro.c b/common/libretro.c
+index a1a5558..fc6ca86 100644
+--- a/common/libretro.c
++++ b/common/libretro.c
+@@ -2066,6 +2066,11 @@ IN_Commands(void)
+ {
+ }
+ 
++/* realtime the right stick came to rest after pitching the view; 0 while pitching, -1 once handled */
++static double stick_pitch_rest_since = -1.0;
++/* mouse (gyro) pitch since the right stick came to rest */
++static int rest_mouse_pitch = 0;
++
+ void
+ IN_Move(usercmd_t *cmd)
+ {
+@@ -2130,7 +2135,25 @@ IN_Move(usercmd_t *cmd)
+          cl.viewangles[YAW] -= (float)(sensitivity.value * rsx / (ANALOG_RANGE - analog_deadzone)) / (framerate / 60.0f);
+       }
+ 
+-      V_StopPitchDrift();
++      /* Only a stick that is pitching the view holds the centring drift off (as the mouse and keys do), so
++       * centerview works. With lookspring on, the view springs back once the stick has rested for 0.6 s after
++       * looking up or down, as releasing mlook does. */
++      if (rsy > analog_deadzone || rsy < -analog_deadzone)
++      {
++         V_StopPitchDrift();
++         stick_pitch_rest_since = 0.0;
++      }
++      else if (stick_pitch_rest_since == 0.0)
++      {
++         stick_pitch_rest_since = realtime;
++         rest_mouse_pitch = 0;
++      }
++      else if (stick_pitch_rest_since > 0.0 && realtime - stick_pitch_rest_since >= 0.6)
++      {
++         stick_pitch_rest_since = -1.0;
++         if (lookspring.value)
++            V_StartPitchDrift();
++      }
+       if (rsy > analog_deadzone || rsy < -analog_deadzone)
+       {
+          if (rsy > analog_deadzone)
+@@ -2140,6 +2163,26 @@ IN_Move(usercmd_t *cmd)
+          cl.viewangles[PITCH] -= (float)(sensitivity.value * rsy / (ANALOG_RANGE - analog_deadzone)) / (framerate / 60.0f);
+       }
+ 
++      /* A gamepad player's frontend may also send mouse motion (a phone's gyro): it turns and pitches the view as
++       * the mouse does with a keyboard. Pitching that way holds the centring drift off, which otherwise keeps
++       * pulling the view level once it has got there, though a tremor does not cut a centring short; and by more
++       * than a tremor while the look-spring waits it calls the spring off, so the view stays where the tilt aims. */
++      mx = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_X);
++      my = input_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_Y);
++      if (mx || my)
++      {
++         cl.viewangles[YAW] -= m_yaw.value * mx * sensitivity.value;
++         if (my && (!cl.pitchvel || my >= 8 || my <= -8))
++            V_StopPitchDrift();
++         cl.viewangles[PITCH] += m_pitch.value * my * sensitivity.value;
++         if (stick_pitch_rest_since > 0.0)
++         {
++            rest_mouse_pitch += my < 0 ? -my : my;
++            if (rest_mouse_pitch >= 40)
++               stick_pitch_rest_since = -1.0;
++         }
++      }
++
+       if (cl.viewangles[PITCH] > 80)
+          cl.viewangles[PITCH] = 80;
+       if (cl.viewangles[PITCH] < -70)

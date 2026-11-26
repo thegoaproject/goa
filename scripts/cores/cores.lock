@@ -1,0 +1,44 @@
+# The emulator cores GOA ships, and where their exact source is (GPL). goodoldandroid.app/source/ is generated from this.
+# Cores are bundled in the app; to update one, replace the binary, update its entry here and redeploy the website.
+
+[dosbox-pure]
+version  = 1.0-preview7
+commit   = cdaea10ce8cac231bc341ca05d4c5e4e5fe0fbd5
+repo     = https://codeberg.org/schelling/dosbox-pure.git
+license  = GPL-2.0-or-later (Nuked OPL3, mt32emu: LGPL-2.1-or-later)
+binary   = upstream's official release build, unmodified: dosbox_pure_libretro-android_arm64-1.0-preview7.zip
+sha256   = b315c083d256ed8090d942ba479c7bbe7f26513a1684b400f77b1bd2c2c65106  app/src/main/jniLibs/arm64-v8a/libdosbox_pure.so
+note     = Release builds ship arm64-v8a only. The x86_64 copy is for emulator testing and is excluded from release builds.
+
+[scummvm]
+version  = 2026.4.1git
+commit   = e0ddc60bfabb1efdf1e135006c8914ca59d0596c
+repo     = https://github.com/scummvm/scummvm.git
+license  = GPL-3.0-or-later
+# Not in git (over GitHub's 100 MB file limit): scripts/cores/fetch-cores.sh installs GOA's fixed copy from R2
+binary   = libretro's build of that commit (scummvm_libretro_android), unmodified
+sha256   = a828e877372521a99fc2120c6cb762986448161625fee9172bf5961f3c14791e  third_party/scummvm/jniLibs/arm64-v8a/libscummvm_libretro.so
+sha256   = 6b0e1789e376591a6e364d05a76aca02ce84425c2bb2aaf561ebde8eac160ec6  third_party/scummvm/jniLibs/x86_64/libscummvm_libretro.so
+sha256   = 0d220df6035b4402d4fd5795dfdc8ff627e856356d653c2f7827faf66eab4d44  third_party/scummvm/assets/scummvm_support.zip
+
+[tyrquake]
+version  = 0.62
+commit   = 67db338ff4d27fdbcead61d4e54938d758ae62cb
+repo     = https://github.com/libretro/tyrquake.git
+license  = GPL-2.0-or-later
+# Not in git: scripts/cores/fetch-cores.sh installs GOA's build from R2 (source/builds/tyrquake/67db338ff4d2-goa2)
+binary   = GOA's build of that commit with GOA's patch (gamepad look-spring, centre view and gyro look), made by scripts/cores/build-tyrquake.sh, as third_party/tyrquake/jniLibs/<abi>/libtyrquake_libretro.so
+patch    = https://cdn.goodoldandroid.app/source/builds/tyrquake/67db338ff4d2-goa2/0001-gamepad-look.patch
+build    = https://cdn.goodoldandroid.app/source/builds/tyrquake/67db338ff4d2-goa2/build-tyrquake.sh
+sha256   = 92193c26f86c8c97d53e9eb0d88ad60ff0561d70c9b5b293fb6ae619c54ffda8  third_party/tyrquake/jniLibs/arm64-v8a/libtyrquake_libretro.so
+sha256   = 1fe7e25349aa5499e9e45f4ef59ea1cd13edfc35253e1e627bc1ec4cc8669ad5  third_party/tyrquake/jniLibs/x86_64/libtyrquake_libretro.so
+
+[openlara]
+version  = v1
+commit   = e4ce52edec5a9a6ad22b69d08c687bf070e68876
+repo     = https://github.com/libretro/OpenLara.git
+license  = BSD-2-Clause
+# Not in git: scripts/cores/fetch-cores.sh installs GOA's fixed copy from R2 (libretro's buildbot nightly of 2026-11-12)
+binary   = libretro's build of that commit (openlara_libretro_android), unmodified, as third_party/openlara/jniLibs/<abi>/libopenlara_libretro.so
+sha256   = 6baf929eb555cbf076b8161960eabe40fff86926691b76a86404efc1838c2624  third_party/openlara/jniLibs/arm64-v8a/libopenlara_libretro.so
+sha256   = 6223f1ca0c14a3bce37da0b9f9d083736856d2496c03add30e9f99039996d1bf  third_party/openlara/jniLibs/x86_64/libopenlara_libretro.so

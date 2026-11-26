@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+    <!-- Extras → artwork → "Set as wallpaper" (WallpaperManager.setBitmap); a normal, install-time permission -->
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
+    <!-- Name, icon and theme come from the edition (app/build.gradle.kts, goa.edition): "GOA" or "GOA OSS" -->
+    <!-- Backups keep only the player's settings (data_extraction_rules.xml): no games, no library database, and
+         never the GOG session, whose keystore key doesn't move to a new phone -->
+    <application
+        android:name=".GoaApplication"
+        android:appCategory="game"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:largeHeap="true"
+        android:icon="${appIcon}"
+        android:roundIcon="${appRoundIcon}"
+        android:label="${appLabel}"
+        android:supportsRtl="true"
+        android:theme="${appTheme}">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.emulation.EmulationActivity"
+            android:process=":emulator"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden"
+            android:launchMode="singleTop" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>
+

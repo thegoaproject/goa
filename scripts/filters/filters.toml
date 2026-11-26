@@ -1,0 +1,51 @@
+# GOA's video filter lineup. Read by build-filters.py. Order = order on the Video page.
+# licence must be one of: "Public domain", "MIT", "BSD-3-Clause", "GPL-2.0-or-later", "GPL-3.0-or-later", "GPL (any version)"
+
+[clean-upscale]
+name = "Clean Upscale"
+description = "Smooth, sharp edges from Snapdragon GSR. Modern and clean."
+preset = "goa/clean-upscale.slangp"
+speed = "UNMEASURED"
+credits = [{ component = "Snapdragon Game Super Resolution", authors = "Qualcomm Innovation Center", licence = "BSD-3-Clause", source = "https://github.com/SnapdragonStudios/snapdragon-gsr/tree/d926f074bcb9d714e179f1ce0fcb9ee2eeb5074e/sgsr/v1" }]
+
+[sharp-pixels]
+name = "Sharp Pixels"
+description = "Crisp square pixels at any size, without shimmer."
+preset = "goa/sharp-pixels.slangp"
+speed = "UNMEASURED"
+credits = [{ component = "sharp-bilinear", authors = "Themaister", licence = "Public domain", source = "https://github.com/libretro/slang-shaders/blob/2345ee91602a7404d3a1a6a5df6108d7305fdad4/pixel-art-scaling/shaders/sharp-bilinear.slang" }]
+
+[dos-crt]
+name = "DOS CRT"
+description = "A 1990s PC monitor: fine VGA scanlines, mask and glow."
+preset = "goa/dos-crt.slangp"
+speed = "UNMEASURED"
+credits = [{ component = "crt-guest-advanced", authors = "guest(r)", licence = "GPL-2.0-or-later", source = "https://github.com/libretro/slang-shaders/tree/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/guest" }]
+
+[crt-light]
+name = "CRT Light"
+description = "Light scanlines and a fine mask. Fast on any phone."
+preset = "upstream/slang-shaders/crt/zfast-crt.slangp"
+speed = "UNMEASURED"
+credits = [{ component = "zfast-crt", authors = "Greg Hogan (SoltanGris42)", licence = "GPL-2.0-or-later", source = "https://github.com/libretro/slang-shaders/tree/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/zfast_crt" }]
+
+[crt-lottes]
+name = "CRT Lottes"
+description = "Arcade-style scanlines with a strong shadow mask."
+preset = "upstream/slang-shaders/crt/crt-lottes.slangp"
+speed = "UNMEASURED"
+credits = [{ component = "crt-lottes", authors = "Timothy Lottes", licence = "Public domain", source = "https://github.com/libretro/slang-shaders/blob/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/crt-lottes.slang" }]
+
+[crt-easymode]
+name = "CRT Easymode"
+description = "Balanced scanlines and mask that look good at any size."
+preset = "upstream/slang-shaders/crt/crt-easymode.slangp"
+speed = "UNMEASURED"
+credits = [{ component = "crt-easymode", authors = "EasyMode", licence = "GPL (any version)", source = "https://github.com/libretro/slang-shaders/blob/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/crt-easymode.slang" }]
+
+[crt-guest]
+name = "CRT Guest Advanced"
+description = "High-quality CRT with mask, glow and bloom. Heavier."
+preset = "upstream/slang-shaders/crt/crt-guest-advanced-fast.slangp"
+speed = "UNMEASURED"
+credits = [{ component = "crt-guest-advanced", authors = "guest(r)", licence = "GPL-2.0-or-later", source = "https://github.com/libretro/slang-shaders/tree/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/guest" }]

@@ -1,0 +1,146 @@
+{
+  "format": 1,
+  "id": "crt-light",
+  "name": "CRT Light",
+  "description": "Light scanlines and a fine mask. Fast on any phone.",
+  "speed": "UNMEASURED",
+  "historyDepth": 0,
+  "textures": [],
+  "passes": [
+    {
+      "vertex": "pass0.vert",
+      "fragment": "pass0.frag",
+      "alias": null,
+      "scaleX": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "scaleY": {
+        "type": "viewport",
+        "factor": 1.0
+      },
+      "filterLinear": true,
+      "wrap": "clamp_to_edge",
+      "mipmapInput": false,
+      "format": "RGBA8",
+      "frameCountMod": 0,
+      "uniforms": {
+        "MVP": {
+          "name": "global.MVP",
+          "type": "mat4"
+        },
+        "SourceSize": {
+          "name": "params.SourceSize",
+          "type": "vec4"
+        },
+        "OutputSize": {
+          "name": "params.OutputSize",
+          "type": "vec4"
+        }
+      },
+      "samplers": {
+        "Source": "Source"
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "id": "BLURSCALEX",
+      "label": "Blur Amount X-Axis",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.3,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.BLURSCALEX"
+        }
+      ]
+    },
+    {
+      "id": "LOWLUMSCAN",
+      "label": "Scanline Darkness - Low",
+      "min": 0.0,
+      "max": 10.0,
+      "step": 0.5,
+      "default": 6.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.LOWLUMSCAN"
+        }
+      ]
+    },
+    {
+      "id": "HILUMSCAN",
+      "label": "Scanline Darkness - High",
+      "min": 0.0,
+      "max": 50.0,
+      "step": 1.0,
+      "default": 8.0,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.HILUMSCAN"
+        }
+      ]
+    },
+    {
+      "id": "BRIGHTBOOST",
+      "label": "Dark Pixel Brightness Boost",
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.05,
+      "default": 1.25,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.BRIGHTBOOST"
+        }
+      ]
+    },
+    {
+      "id": "MASK_DARK",
+      "label": "Mask Effect Amount",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.25,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.MASK_DARK"
+        }
+      ]
+    },
+    {
+      "id": "MASK_FADE",
+      "label": "Mask/Scanline Fade",
+      "min": 0.0,
+      "max": 1.0,
+      "step": 0.05,
+      "default": 0.8,
+      "visible": true,
+      "uniforms": [
+        {
+          "pass": 0,
+          "name": "params.MASK_FADE"
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "component": "zfast-crt",
+      "authors": "Greg Hogan (SoltanGris42)",
+      "licence": "GPL-2.0-or-later",
+      "source": "https://github.com/libretro/slang-shaders/tree/2345ee91602a7404d3a1a6a5df6108d7305fdad4/crt/shaders/zfast_crt"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+GOA plays classic MS-DOS games on Android. It sets each game up for you: controls, sound card, speed and the game's own settings, so you can just press Play.
+
+SET UP FOR YOU
+• Controller layouts, sound cards and game settings are tuned per game, and we keep refining them with feedback from players.
+• Touch controls named after the game's own actions, or use a gamepad with buttons you can remap.
+• Video filters from clean and modern to a classic CRT look.
+
+YOUR GAMES
+• Free classics included: freeware favourites, released by their makers for anyone to play. One tap to install.
+• Your GOG.com library: sign in with GOG to install the DOS games you own, straight onto your phone.
+• Your own files: add a folder and GOA finds the DOS games in it, including every folder inside it, or import a game archive.
+
+PLAY YOUR WAY
+• Save Slot and Load Slot save your exact place in any game, on top of the game's own saves.
+• Your library is grouped by where each game came from, with search, sorting and filters.
+• Works on phones, tablets and foldables, in light or dark theme.
+
+FREE TO TRY
+The free version includes every feature and every free classic, plus 3 of your own games (from GOG or your own files) installed at a time. GOA Pro is a one-time purchase that removes that limit and supports development. No subscription, no ads.
+
+PRIVACY
+Nothing is shared unless you say so. Your GOG sign-in stays on your phone.
+
+GOA doesn't include commercial games: you play the ones you own. GOA is not affiliated with GOG.com. Questions or problems: support@goodoldandroid.app
