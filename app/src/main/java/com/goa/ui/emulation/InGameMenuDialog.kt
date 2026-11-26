@@ -52,6 +52,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -138,17 +141,18 @@ fun InGameMenuDialog(
         AlertDialog(
             onDismissRequest = { showRemapSheet = false },
             title = {
-                Row(
+                // Reset sits beside the title, or under it with large fonts (it used to be squeezed off the row)
+                com.goa.ui.menu.SideOrBelow(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    leading = {
+                        Text(
+                            text = "Remap Controller Buttons",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = RetroAmber
+                        )
+                    }
                 ) {
-                    Text(
-                        text = "Remap Controller Buttons",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = RetroAmber
-                    )
                     TextButton(
                         onClick = {
                             GamepadPreferences.resetMappings(context, gameId)
@@ -163,10 +167,10 @@ fun InGameMenuDialog(
                 }
             },
             text = {
+                // No fixed height: the list takes the height the dialog has left (more rows on a tall screen, and
+                // still scrolls when large fonts make each row tall)
                 LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(350.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(GamepadButton.values().toList()) { button ->
@@ -179,25 +183,26 @@ fun InGameMenuDialog(
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant
                             )
                         ) {
-                            Row(
+                            // The action chip sits beside the button's name, or under it with large fonts
+                            com.goa.ui.menu.SideOrBelow(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 12.dp, vertical = 8.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = button.label,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        fontWeight = FontWeight.SemiBold
-                                    )
-                                    Text(
-                                        text = action.defaultKeyLabel,
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                leading = {
+                                    Column {
+                                        Text(
+                                            text = button.label,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontWeight = FontWeight.SemiBold
+                                        )
+                                        Text(
+                                            text = action.defaultKeyLabel,
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
                                 }
+                            ) {
                                 Surface(
                                     shape = RoundedCornerShape(4.dp),
                                     color = MaterialTheme.colorScheme.primaryContainer
@@ -237,9 +242,7 @@ fun InGameMenuDialog(
             },
             text = {
                 LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp),
+                    modifier = Modifier.fillMaxWidth(),   // takes the height the dialog has left, see the remap list
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(ControllerActions.allActions) { action ->
@@ -324,16 +327,14 @@ fun InGameMenuDialog(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     } else {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
+                        // Side by side, or stacked when large fonts would cut the labels
+                        com.goa.ui.menu.RowOrStack(labels = listOf("Save Slot", "Load Slot")) { itemModifier ->
                             Button(
                                 onClick = {
                                     val ok = onSaveState()
                                     statusMessage = if (ok) "Save state created successfully!" else "Failed to save state."
                                 },
-                                modifier = Modifier.weight(1f),
+                                modifier = itemModifier,
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -354,7 +355,7 @@ fun InGameMenuDialog(
                                         else -> "No saved state found."
                                     }
                                 },
-                                modifier = Modifier.weight(1f),
+                                modifier = itemModifier,
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
                                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -743,11 +744,19 @@ fun InGameMenuDialog(
                 }
             }
         },
-        actions = {
-            // Pinned below the options, one line each: the labels shrink to fit rather than wrap
+        // What "Exit to Launcher" needs in full at the player's font size (label + icon, gap, padding, border): with
+        // large fonts the two actions stack instead of shrinking to "Exit t…" / "Resu…"
+        actionMinWidth = with(LocalDensity.current) {
+            rememberTextMeasurer().measure(
+                "Exit to Launcher",
+                TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Medium, letterSpacing = 0.sp)
+            ).size.width.toDp()
+        } + 18.dp + 6.dp + 24.dp + 4.dp,
+        actions = { itemModifier ->
+            // Pinned below the options, one line each: side by side, or stacked when the labels wouldn't fit
             OutlinedButton(
                 onClick = onExit,
-                modifier = Modifier.weight(1f),
+                modifier = itemModifier,
                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp)
             ) {
                 Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -764,7 +773,7 @@ fun InGameMenuDialog(
             }
             Button(
                 onClick = onResume,
-                modifier = Modifier.weight(1f),
+                modifier = itemModifier,
                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = RetroGreen, contentColor = Color.Black)
             ) {

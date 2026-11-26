@@ -2,9 +2,6 @@ package com.goa.ui.savestate
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,6 +40,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.goa.ui.menu.FullScreenDialogWindow
 import com.goa.data.drive.ConflictPrompt
 import com.goa.data.drive.CopyInfo
 import com.goa.domain.savestate.ConflictChoice
@@ -65,17 +63,15 @@ fun ConflictScreen(
     val keepFocus = remember { FocusRequester() }
     LaunchedEffect(prompt.title, prompt.position) { runCatching { keepFocus.requestFocus() } }
 
-    // The dialog's window reaches under the gesture bar without being told about it: measure the bar in the
-    // screen's window (zero in a game, where the bars are hidden) and keep the buttons above it
-    val navigationBar = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-
     Dialog(
         onDismissRequest = { onChoice(ConflictChoice.SKIP, false) },
-        properties = DialogProperties(usePlatformDefaultWidth = false, dismissOnClickOutside = false)
+        properties = DialogProperties(usePlatformDefaultWidth = false, dismissOnClickOutside = false, decorFitsSystemWindows = false)
     ) {
+        // The window covers the whole display; safeDrawingPadding below keeps the buttons clear of the bars
+        FullScreenDialogWindow()
         Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
             Column(
-                modifier = Modifier.fillMaxSize().safeDrawingPadding().padding(bottom = navigationBar).padding(20.dp)
+                modifier = Modifier.fillMaxSize().safeDrawingPadding().padding(20.dp)
             ) {
                 Column(
                     modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()),

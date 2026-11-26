@@ -81,26 +81,37 @@ fun AddFolderRow(
                     .clickable { onAddFolder(null) },
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(Icons.Default.CreateNewFolder, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer)
-                Spacer(Modifier.width(12.dp))
-                Column(modifier = Modifier.weight(1f)) {
-                    Text("Add Folder", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                    Text(
-                        addFolderSubtitle(folders, ownGames, scanState),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = if (scanState is ScanState.Failed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 12.sp
-                    )
-                }
-                if (folders.isNotEmpty()) {
-                    IconButton(onClick = onRescan, enabled = !scanning) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Rescan folders")
+                // Rescan and expand sit beside the title, or under it with large fonts (squeezed beside it, the title
+                // went one word per line); the close button stays at the end either way
+                com.goa.ui.menu.SideOrBelow(
+                    modifier = Modifier.weight(1f),
+                    leadingMinFraction = 0.6f,
+                    leading = {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.CreateNewFolder, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer)
+                            Spacer(Modifier.width(12.dp))
+                            Column {
+                                Text("Add Folder", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                                Text(
+                                    addFolderSubtitle(folders, ownGames, scanState),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = if (scanState is ScanState.Failed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    fontSize = 12.sp
+                                )
+                            }
+                        }
                     }
-                    IconButton(onClick = { expanded = !expanded }) {
-                        Icon(
-                            if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                            contentDescription = if (expanded) "Hide folders" else "Manage folders"
-                        )
+                ) {
+                    if (folders.isNotEmpty()) Row {
+                        IconButton(onClick = onRescan, enabled = !scanning) {
+                            Icon(Icons.Default.Refresh, contentDescription = "Rescan folders")
+                        }
+                        IconButton(onClick = { expanded = !expanded }) {
+                            Icon(
+                                if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                                contentDescription = if (expanded) "Hide folders" else "Manage folders"
+                            )
+                        }
                     }
                 }
                 if (onClose != null) HintCloseButton(LibraryViewModel.HINT_FOLDERS) { onClose() }

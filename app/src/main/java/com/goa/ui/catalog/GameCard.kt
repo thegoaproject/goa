@@ -102,7 +102,8 @@ fun GameListItem(
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = if (isSelected) FontWeight.Bold else FontWeight.SemiBold,
                     color = contentColor,
-                    maxLines = 1,
+                    // Large fonts (low vision): two lines, so the title can still be read in full
+                    maxLines = if (androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f) 2 else 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(2.dp))

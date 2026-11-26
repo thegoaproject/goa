@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -169,7 +170,7 @@ fun LibraryCatalogPane(
             )
     }
 
-    // Search, filters, the GOG suggestion and Add Folder: above the list in portrait, the left panel in phone landscape
+    // Search and filters: pinned above the list in portrait, the left panel (with the hint cards) in phone landscape
     val controls: @Composable () -> Unit = {
             // Sync progress bar
             AnimatedVisibility(visible = uiState.syncState is SyncState.Syncing) {
@@ -347,7 +348,14 @@ fun LibraryCatalogPane(
                     }
                 }
             }
+    }
 
+    // The GOG suggestion and Add Folder: dismissible cards. In portrait they are the game list's first item and scroll
+    // away with it: pinned above the list, with large fonts they filled the whole screen and left the games no room.
+    val showHints = (uiState.userSession == null && LibraryViewModel.HINT_GOG !in hiddenHints) ||
+        LibraryViewModel.HINT_FOLDERS !in hiddenHints
+    val hints: @Composable () -> Unit = {
+        Column(modifier = Modifier.fillMaxWidth()) {
             // Offline / Local Mode Banner (when unauthenticated), until the player closes it
             if (uiState.userSession == null && LibraryViewModel.HINT_GOG !in hiddenHints) {
                 Card(
@@ -365,27 +373,35 @@ fun LibraryCatalogPane(
                             .padding(horizontal = 12.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = "Playing in Local & Freeware Mode",
-                                style = MaterialTheme.typography.labelLarge,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                            Text(
-                                text = "Free classics, released by their makers for anyone to play. Connect GOG to sync your full collection.",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Button(
-                            onClick = onConnectGog,
-                            shape = MaterialTheme.shapes.small,
-                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                            modifier = Modifier.height(32.dp)
+                        // Connect GOG sits beside the text, or under it with large fonts (a Row squeezed the text
+                        // to a few letters per line); the close button stays at the end either way
+                        com.goa.ui.menu.SideOrBelow(
+                            modifier = Modifier.weight(1f),
+                            trailingMaxFraction = 0.4f,
+                            leading = {
+                                Column {
+                                    Text(
+                                        text = "Playing in Local & Freeware Mode",
+                                        style = MaterialTheme.typography.labelLarge,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                    Text(
+                                        text = "Free classics, released by their makers for anyone to play. Connect GOG to sync your full collection.",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                                    )
+                                }
+                            }
                         ) {
-                            com.goa.ui.menu.OneLineLabel("Connect GOG", style = MaterialTheme.typography.labelSmall)
+                            Button(
+                                onClick = onConnectGog,
+                                shape = MaterialTheme.shapes.small,
+                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
+                                modifier = Modifier.heightIn(min = 32.dp)
+                            ) {
+                                com.goa.ui.menu.OneLineLabel("Connect GOG", style = MaterialTheme.typography.labelSmall)
+                            }
                         }
                         HintCloseButton(LibraryViewModel.HINT_GOG, onHideHint)
                     }
@@ -404,7 +420,7 @@ fun LibraryCatalogPane(
                     onClose = { onHideHint(LibraryViewModel.HINT_FOLDERS) }
                 )
             }
-
+        }
     }
 
     val showEmpty = uiState.filteredGames.isEmpty() && uiState.syncState !is SyncState.Syncing
@@ -460,8 +476,9 @@ fun LibraryCatalogPane(
                 var scrolledFor by rememberSaveable { mutableStateOf<Long?>(null) }
                 LaunchedEffect(selectedGameId) {
                     if (selectedGameId == null || selectedGameId == scrolledFor) return@LaunchedEffect
-                    val target = currentRows.indexOfFirst { it is LibraryRow.Game && !it.recent && it.game.id == selectedGameId }
-                    if (target < 0) return@LaunchedEffect
+                    val row = currentRows.indexOfFirst { it is LibraryRow.Game && !it.recent && it.game.id == selectedGameId }
+                    if (row < 0) return@LaunchedEffect
+                    val target = row + if (showHints) 1 else 0   // the hint cards are item 0
                     scrolledFor = selectedGameId
                     val visible = listState.layoutInfo.visibleItemsInfo
                     val first = visible.firstOrNull()?.index
@@ -472,11 +489,13 @@ fun LibraryCatalogPane(
                 }
                 LazyColumn(
                     state = listState,
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                    contentPadding = PaddingValues(vertical = 4.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier.fillMaxSize()
                 ) {
+                    if (showHints) item(key = "hints") { hints() }   // the cards carry their own side margins
                     items(rows, key = { it.key }) { row ->
+                      Box(modifier = Modifier.padding(horizontal = 12.dp)) {
                         when (row) {
                             is LibraryRow.Header -> SectionHeader(
                                 title = row.title,
@@ -493,6 +512,7 @@ fun LibraryCatalogPane(
                             )
                             is LibraryRow.InstallsFootnote -> InstallsFootnote(used = ownInstalls, onUpgrade = onUpgrade)
                         }
+                      }
                     }
                 }
     }
@@ -518,7 +538,10 @@ fun LibraryCatalogPane(
                         .weight(1f)
                         .verticalScroll(rememberScrollState())
                         .padding(bottom = 8.dp)
-                ) { controls() }
+                ) {
+                    controls()
+                    hints()
+                }
             }
             VerticalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
             Box(
@@ -547,7 +570,10 @@ fun LibraryCatalogPane(
                     .padding(innerPadding)
             ) {
                 controls()
-                if (showEmpty) emptyState() else gameList()
+                if (showEmpty) {
+                    hints()
+                    emptyState()
+                } else gameList()
             }
         }
     }
